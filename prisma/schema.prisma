@@ -23,21 +23,32 @@ model Income {
   amount      Float
   source      String
   description String?
-  date        DateTime @default(now())
+  date        DateTime
   createdAt   DateTime @default(now())
 
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Expense {
   id          String   @id @default(uuid())
   amount      Float
-  category    String
-  description String?
-  date        DateTime @default(now())
+  description String
+  date        DateTime
   createdAt   DateTime @default(now())
 
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  expenses Expense[]
 }
