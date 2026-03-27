@@ -7,7 +7,5 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
   imports: [PrismaModule, AuthModule, UsersModule, IncomeModule, ExpensesModule],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
