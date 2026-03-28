@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 
@@ -11,11 +13,16 @@ describe('AuthService', () => {
     create: jest.fn(),
   };
 
+  const jwtServiceMock = {
+    sign: jest.fn().mockReturnValue('mocked-jwt-token'),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
         { provide: UsersService, useValue: usersServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
       ],
     }).compile();
 
@@ -64,5 +71,36 @@ describe('AuthService', () => {
     await expect(
       service.register({ email: 'taken@test.com', password: '123456' }),
     ).rejects.toThrow(BadRequestException);
+  });
+
+  it('should return access_token on valid login', async () => {
+    const hashedPassword = await bcrypt.hash('123456', 10);
+
+    usersServiceMock.findByEmail.mockResolvedValue({
+      id: 'user-id',
+      email: 'test@test.com',
+      passwordHash: hashedPassword,
+      name: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    const dto = { email: 'test@test.com', password: '123456' };
+    const result = await service.login(dto);
+
+    expect(result.access_token).toBeDefined();
+    expect(result.user).toEqual({ id: 'user-id', email: 'test@test.com' });
+    expect(jwtServiceMock.sign).toHaveBeenCalledWith({
+      sub: 'user-id',
+      email: 'test@test.com',
+    });
+  });
+
+  it('should throw UnauthorizedException for invalid credentials', async () => {
+    usersServiceMock.findByEmail.mockResolvedValue(null);
+
+    await expect(
+      service.login({ email: 'wrong@test.com', password: '123456' }),
+    ).rejects.toThrow(UnauthorizedException);
   });
 });
