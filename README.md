@@ -6,99 +6,99 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
-## 📖 Descripción general
+## 📖 Overview
 
-**DevTrackr API** es el backend principal para DevTrackr, una plataforma diseñada para que los desarrolladores y profesionales puedan llevar un control detallado de sus finanzas e ingresos.
+**DevTrackr API** is the core backend for DevTrackr, a platform designed for developers and professionals to keep detailed track of their finances and income.
 
-Esta API está construida con **NestJS** y sigue una arquitectura modular, escalable y robusta orientada a un entorno de producción, asegurando buenas prácticas de desarrollo, consistencia en las respuestas y un alto nivel de seguridad.
+This API is built with **NestJS** and follows a modular, scalable, and robust architecture geared towards production environments, ensuring development best practices, consistent responses, and a high level of security.
 
-## ✨ Características principales
+## ✨ Key Features
 
-- **Autenticación Profesional y Segura:** Implementada con JWT (JSON Web Tokens), protegiendo rutas sensibles y cifrando las contraseñas con `bcrypt`. Extracción segura del contexto del usuario mediante decoradores personalizados (como `@CurrentUser()`).
-- **Gestión de Ingresos:** Endpoints dedicados para registrar, consultar y administrar los ingresos, validando estrictamente la propiedad de la información para prevenir el acceso no autorizado a los datos de otros usuarios.
-- **Base de Datos Relacional:** Modelado de datos declarativo y fuertemente tipado manejado a través de **Prisma ORM** y una base de datos **PostgreSQL**.
-- **Arquitectura Limpia y Estándares Enterprise:**
-  - Uso de clases `DTO` (Data Transfer Objects) con `class-validator` para validad la entrada de datos.
-  - Interceptores (`ResponseInterceptor`) para devolver una estructura de respuesta siempre consistente.
-  - Filtros de excepciones globales (`HttpExceptionFilter`) para entregar mensajes de error claros y formateados.
+- **Professional & Secure Authentication:** Implemented with JWT (JSON Web Tokens), securing sensitive routes and hashing passwords using `bcrypt`. Secure user context extraction via custom decorators (like `@CurrentUser()`).
+- **Income Management:** Dedicated endpoints to register, query, and manage income records, strictly validating data ownership to prevent unauthorized access to other users' data.
+- **Relational Database:** Declarative and strictly typed data modeling managed via **Prisma ORM** with a **PostgreSQL** database.
+- **Clean Architecture & Enterprise Standards:**
+  - Utilization of `DTO` (Data Transfer Objects) classes with `class-validator` for data input validation.
+  - Interceptors (`ResponseInterceptor`) to enforce a consistent response structure.
+  - Global exception filters (`HttpExceptionFilter`) to deliver clear and formatted error messages.
 
-## 🛠️ Tecnologías utilizadas
+## 🛠️ Tech Stack
 
-- **Framework principal:** [NestJS](https://nestjs.com/) v11
-- **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
+- **Core Framework:** [NestJS](https://nestjs.com/) v11
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **ORM:** [Prisma](https://www.prisma.io/)
-- **Base de datos:** [PostgreSQL](https://www.postgresql.org/)
-- **Seguridad:** Passport.js, JWT, Bcrypt
-- **Validación y Estructura:** `class-validator`, `class-transformer`
+- **Database:** [PostgreSQL](https://www.postgresql.org/)
+- **Security:** Passport.js, JWT, Bcrypt
+- **Validation & Structure:** `class-validator`, `class-transformer`
 
-## 🚀 Requisitos previos
+## 🚀 Prerequisites
 
-Antes de comenzar, asegúrate de tener instalado en tu sistema local:
-- [Node.js](https://nodejs.org/en/) (versión 18 o superior recomendada)
-- [npm](https://www.npmjs.com/) (gestor de paquetes)
-- Una instancia de [PostgreSQL](https://www.postgresql.org/) en ejecución.
+Before you begin, ensure you have the following installed on your local machine:
+- [Node.js](https://nodejs.org/en/) (version 18 or higher recommended)
+- [npm](https://www.npmjs.com/) (package manager)
+- A running instance of [PostgreSQL](https://www.postgresql.org/).
 
-## ⚙️ Configuración del proyecto
+## ⚙️ Project Setup
 
-1. **Clonar el repositorio e ingresar al directorio:**
+1. **Clone the repository and go to the project directory:**
    ```bash
-   git clone <url-del-repositorio>
+   git clone <repository-url>
    cd devtrackrApi
    ```
 
-2. **Instalar dependencias:**
+2. **Install dependencies:**
    ```bash
    npm install
    ```
 
-3. **Configurar las variables de entorno:**
-   - Si no existe, crea un archivo `.env` en la raíz del proyecto tomando como base un posible `.env.example`.
-   - Variables requeridas obligatorias (ejemplo):
+3. **Configure environment variables:**
+   - Create a `.env` file in the root directory (you can use `.env.example` as a template if available).
+   - Required variables (example):
      ```env
-     DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/devtrackr?schema=public"
-     JWT_SECRET="tu_super_secreto_aqui_para_jwt"
+     DATABASE_URL="postgresql://user:password@localhost:5432/devtrackr?schema=public"
+     JWT_SECRET="your_super_jwt_secret_here"
      ```
 
-4. **Aplicar migraciones a la base de datos:**
+4. **Apply database migrations:**
    ```bash
    npx prisma migrate dev
    ```
 
-## 💻 Compilación y ejecución
+## 💻 Compile and Run
 
-El proyecto está configurado para ejecutarse en diferentes entornos de la manera tradicional en NestJS:
+The project is configured to run in different environments the traditional NestJS way:
 
 ```bash
-# iniciar la aplicación para desarrollo
+# start the application for development
 npm run start
 
-# iniciar la aplicación con hot-reload (muy recomendado en desarrollo)
+# start the application in watch mode (highly recommended for development)
 npm run start:dev
 
-# empaquetar e iniciar en modo producción
+# build the project and start in production mode
 npm run build
 npm run start:prod
 ```
 
-## 🧪 Pruebas
+## 🧪 Testing
 
-El sistema prevé el uso de pruebas para garantizar el mantenimiento a futuro.
+The system is designed with testing in mind to guarantee future maintainability.
 
 ```bash
-# ejecutar las pruebas unitarias
+# run unit tests
 npm run test
 
-# ejecutar las pruebas unitarias en modo interactivo/watch
+# run unit tests in interactive/watch mode
 npm run test:watch
 
-# generar reporte de cobertura de código
+# generate test coverage report
 npm run test:cov
 ```
 
-## 📄 Estructura del proyecto principal
+## 📄 Core Project Structure
 
-El directorio de código fuente principal (`src/`) se organiza en dominios e infraestructura compartida:
+The main source code directory (`src/`) is organized into domains and shared infrastructure:
 
-- `src/modules/auth/`: Lógica de autenticación completa (registro, login, validación de estrategias JWT y guards).
-- `src/modules/income/`: Gestión del seguimiento de los ingresos de los usuarios.
-- `src/common/` *(o config/utils/)*: Utilidades globales como interceptores de consistencia, filtros de excepciones, decoradores globales y configuración.
+- `src/modules/auth/`: Complete authentication logic (register, login, JWT strategy validation, and guards).
+- `src/modules/income/`: Management and tracking of user income records.
+- `src/common/` *(or config/utils/)*: Global utilities like consistency interceptors, exception filters, global decorators, and configurations.
