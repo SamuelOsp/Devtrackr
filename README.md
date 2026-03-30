@@ -1,98 +1,104 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# DevTrackr API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📖 Descripción general
 
-## Description
+**DevTrackr API** es el backend principal para DevTrackr, una plataforma diseñada para que los desarrolladores y profesionales puedan llevar un control detallado de sus finanzas e ingresos.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Esta API está construida con **NestJS** y sigue una arquitectura modular, escalable y robusta orientada a un entorno de producción, asegurando buenas prácticas de desarrollo, consistencia en las respuestas y un alto nivel de seguridad.
 
-## Project setup
+## ✨ Características principales
+
+- **Autenticación Profesional y Segura:** Implementada con JWT (JSON Web Tokens), protegiendo rutas sensibles y cifrando las contraseñas con `bcrypt`. Extracción segura del contexto del usuario mediante decoradores personalizados (como `@CurrentUser()`).
+- **Gestión de Ingresos:** Endpoints dedicados para registrar, consultar y administrar los ingresos, validando estrictamente la propiedad de la información para prevenir el acceso no autorizado a los datos de otros usuarios.
+- **Base de Datos Relacional:** Modelado de datos declarativo y fuertemente tipado manejado a través de **Prisma ORM** y una base de datos **PostgreSQL**.
+- **Arquitectura Limpia y Estándares Enterprise:**
+  - Uso de clases `DTO` (Data Transfer Objects) con `class-validator` para validad la entrada de datos.
+  - Interceptores (`ResponseInterceptor`) para devolver una estructura de respuesta siempre consistente.
+  - Filtros de excepciones globales (`HttpExceptionFilter`) para entregar mensajes de error claros y formateados.
+
+## 🛠️ Tecnologías utilizadas
+
+- **Framework principal:** [NestJS](https://nestjs.com/) v11
+- **Lenguaje:** [TypeScript](https://www.typescriptlang.org/)
+- **ORM:** [Prisma](https://www.prisma.io/)
+- **Base de datos:** [PostgreSQL](https://www.postgresql.org/)
+- **Seguridad:** Passport.js, JWT, Bcrypt
+- **Validación y Estructura:** `class-validator`, `class-transformer`
+
+## 🚀 Requisitos previos
+
+Antes de comenzar, asegúrate de tener instalado en tu sistema local:
+- [Node.js](https://nodejs.org/en/) (versión 18 o superior recomendada)
+- [npm](https://www.npmjs.com/) (gestor de paquetes)
+- Una instancia de [PostgreSQL](https://www.postgresql.org/) en ejecución.
+
+## ⚙️ Configuración del proyecto
+
+1. **Clonar el repositorio e ingresar al directorio:**
+   ```bash
+   git clone <url-del-repositorio>
+   cd devtrackrApi
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Configurar las variables de entorno:**
+   - Si no existe, crea un archivo `.env` en la raíz del proyecto tomando como base un posible `.env.example`.
+   - Variables requeridas obligatorias (ejemplo):
+     ```env
+     DATABASE_URL="postgresql://usuario:contraseña@localhost:5432/devtrackr?schema=public"
+     JWT_SECRET="tu_super_secreto_aqui_para_jwt"
+     ```
+
+4. **Aplicar migraciones a la base de datos:**
+   ```bash
+   npx prisma migrate dev
+   ```
+
+## 💻 Compilación y ejecución
+
+El proyecto está configurado para ejecutarse en diferentes entornos de la manera tradicional en NestJS:
 
 ```bash
-$ npm install
+# iniciar la aplicación para desarrollo
+npm run start
+
+# iniciar la aplicación con hot-reload (muy recomendado en desarrollo)
+npm run start:dev
+
+# empaquetar e iniciar en modo producción
+npm run build
+npm run start:prod
 ```
 
-## Compile and run the project
+## 🧪 Pruebas
+
+El sistema prevé el uso de pruebas para garantizar el mantenimiento a futuro.
 
 ```bash
-# development
-$ npm run start
+# ejecutar las pruebas unitarias
+npm run test
 
-# watch mode
-$ npm run start:dev
+# ejecutar las pruebas unitarias en modo interactivo/watch
+npm run test:watch
 
-# production mode
-$ npm run start:prod
+# generar reporte de cobertura de código
+npm run test:cov
 ```
 
-## Run tests
+## 📄 Estructura del proyecto principal
 
-```bash
-# unit tests
-$ npm run test
+El directorio de código fuente principal (`src/`) se organiza en dominios e infraestructura compartida:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- `src/modules/auth/`: Lógica de autenticación completa (registro, login, validación de estrategias JWT y guards).
+- `src/modules/income/`: Gestión del seguimiento de los ingresos de los usuarios.
+- `src/common/` *(o config/utils/)*: Utilidades globales como interceptores de consistencia, filtros de excepciones, decoradores globales y configuración.
