@@ -1,35 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../infrastructure/database/prisma.service';
+import { CreateIncomeDto } from './dto/create-income.dto';
 
 @Injectable()
 export class IncomeService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findUserIncomes(userId: string) {
+  async getUserIncome(userId: string) {
     return this.prisma.income.findMany({
       where: { userId },
       orderBy: { date: 'desc' },
-    });
-  }
-
-  async createIncome(
-    userId: string,
-    data: { amount: number; source: string; description?: string; date: Date },
-  ) {
-    return this.prisma.income.create({
-      data: {
-        ...data,
-        userId,
+      select: {
+        id: true,
+        amount: true,
+        description: true,
+        date: true,
+        createdAt: true,
       },
     });
   }
 
-  async deleteIncome(id: string, userId: string) {
-    return this.prisma.income.deleteMany({
-      where: {
-        id,
+  async createIncome(dto: CreateIncomeDto, userId: string) {
+    return this.prisma.income.create({
+      data: {
+        amount: dto.amount,
+        description: dto.description,
+        date: new Date(dto.date),
         userId,
+      },
+      select: {
+        id: true,
+        amount: true,
+        description: true,
+        date: true,
+        createdAt: true,
       },
     });
   }
 }
+

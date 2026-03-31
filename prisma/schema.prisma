@@ -7,27 +7,26 @@ generator client {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
-  passwordHash  String
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  incomes   Income[]
-  expenses  Expense[]
+  incomes  Income[]
+  expenses Expense[]
 }
 
 model Income {
   id          String   @id @default(uuid())
   amount      Float
-  source      String
-  description String?
+  description String
   date        DateTime
   createdAt   DateTime @default(now())
 
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -39,10 +38,10 @@ model Expense {
   date        DateTime
   createdAt   DateTime @default(now())
 
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
