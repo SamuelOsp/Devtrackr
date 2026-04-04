@@ -29,6 +29,7 @@ model Income {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([date])
 }
 
 model Expense {
@@ -44,6 +45,7 @@ model Expense {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([date])
 }
 
 model Category {
