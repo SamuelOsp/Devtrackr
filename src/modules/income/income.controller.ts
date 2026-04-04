@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, UseGuards, Query, Patch, Param, Delete } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IncomeService } from './income.service';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -6,6 +7,8 @@ import type { AuthUser } from '../auth/types/user.type';
 import { CreateIncomeDto } from './dto/create-income.dto';
 import { UpdateIncomeDto } from './dto/update-income.dto';
 
+@ApiTags('Income')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('income')
 export class IncomeController {
