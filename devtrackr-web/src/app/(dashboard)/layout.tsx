@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
+import { Sidebar } from '@/components/layout/sidebar';
+import { Header } from '@/components/layout/header';
 
 export default function DashboardLayout({
   children,
@@ -26,5 +28,19 @@ export default function DashboardLayout({
     );
   }
 
-  return <div className="min-h-screen">{children}</div>;
+  if (!isAuthenticated) {
+    return null; // Will redirect in useEffect
+  }
+
+  return (
+    <div className="flex min-h-screen bg-background">
+      <Sidebar />
+      <div className="flex-1 flex flex-col min-w-0">
+        <Header />
+        <main className="flex-1 p-6 overflow-auto bg-muted/20">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
 }
