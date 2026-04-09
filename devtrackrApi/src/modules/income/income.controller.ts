@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, UseGuards, Query, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  UseGuards,
+  Query,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { IncomeService } from './income.service';
@@ -15,10 +25,7 @@ export class IncomeController {
   constructor(private readonly incomeService: IncomeService) {}
 
   @Get()
-  getIncomes(
-    @CurrentUser() user: AuthUser,
-    @Query('limit') limit?: string,
-  ) {
+  getIncomes(@CurrentUser() user: AuthUser, @Query('limit') limit?: string) {
     const take = limit ? parseInt(limit, 10) : 20;
     return this.incomeService.findUserIncomes(user.id, take);
   }
@@ -38,10 +45,7 @@ export class IncomeController {
   }
 
   @Delete(':id')
-  deleteIncome(
-    @Param('id') id: string,
-    @CurrentUser() user: AuthUser,
-  ) {
+  deleteIncome(@Param('id') id: string, @CurrentUser() user: AuthUser) {
     return this.incomeService.deleteIncome(id, user.id);
   }
 }

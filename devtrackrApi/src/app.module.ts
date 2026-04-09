@@ -8,6 +8,14 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { SummaryModule } from './modules/summary/summary.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UsersModule, IncomeModule, ExpensesModule, CategoriesModule, SummaryModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    IncomeModule,
+    ExpensesModule,
+    CategoriesModule,
+    SummaryModule,
+  ],
 })
 export class AppModule {}

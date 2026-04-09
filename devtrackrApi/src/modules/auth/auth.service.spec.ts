@@ -66,8 +66,13 @@ describe('AuthService', () => {
 
       const result = await service.register(registerDto);
 
-      expect(mockUsersService.findByEmail).toHaveBeenCalledWith('test@example.com');
-      expect(bcrypt.hash).toHaveBeenCalledWith('password123', expect.any(Number));
+      expect(mockUsersService.findByEmail).toHaveBeenCalledWith(
+        'test@example.com',
+      );
+      expect(bcrypt.hash).toHaveBeenCalledWith(
+        'password123',
+        expect.any(Number),
+      );
       expect(mockUsersService.create).toHaveBeenCalledWith({
         email: 'test@example.com',
         passwordHash: 'hashed_password',
@@ -83,8 +88,12 @@ describe('AuthService', () => {
     it('should throw if user already exists', async () => {
       mockUsersService.findByEmail.mockResolvedValue({ id: 1 });
 
-      await expect(service.register(registerDto)).rejects.toThrow(BadRequestException);
-      expect(mockUsersService.findByEmail).toHaveBeenCalledWith('test@example.com');
+      await expect(service.register(registerDto)).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(mockUsersService.findByEmail).toHaveBeenCalledWith(
+        'test@example.com',
+      );
       expect(mockUsersService.create).not.toHaveBeenCalled();
     });
 
@@ -99,7 +108,10 @@ describe('AuthService', () => {
 
       await service.register(registerDto);
 
-      expect(bcrypt.hash).toHaveBeenCalledWith('password123', expect.any(Number));
+      expect(bcrypt.hash).toHaveBeenCalledWith(
+        'password123',
+        expect.any(Number),
+      );
       expect(mockUsersService.create).toHaveBeenCalledWith(
         expect.objectContaining({
           passwordHash: 'secure_hash',
@@ -120,17 +132,25 @@ describe('AuthService', () => {
         email: 'test@example.com',
         passwordHash: 'hashed_password',
       };
-      
+
       mockUsersService.findByEmail.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
       mockJwtService.sign.mockReturnValue('mock_jwt_token');
 
       const result = await service.login(loginDto);
 
-      expect(mockUsersService.findByEmail).toHaveBeenCalledWith('test@example.com');
-      expect(bcrypt.compare).toHaveBeenCalledWith('password123', 'hashed_password');
-      expect(mockJwtService.sign).toHaveBeenCalledWith({ sub: mockUser.id, email: mockUser.email });
-      
+      expect(mockUsersService.findByEmail).toHaveBeenCalledWith(
+        'test@example.com',
+      );
+      expect(bcrypt.compare).toHaveBeenCalledWith(
+        'password123',
+        'hashed_password',
+      );
+      expect(mockJwtService.sign).toHaveBeenCalledWith({
+        sub: mockUser.id,
+        email: mockUser.email,
+      });
+
       expect(result).toEqual({
         user: {
           id: mockUser.id,
@@ -148,8 +168,13 @@ describe('AuthService', () => {
       });
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
-      await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
-      expect(bcrypt.compare).toHaveBeenCalledWith('password123', 'hashed_password');
+      await expect(service.login(loginDto)).rejects.toThrow(
+        UnauthorizedException,
+      );
+      expect(bcrypt.compare).toHaveBeenCalledWith(
+        'password123',
+        'hashed_password',
+      );
       expect(mockJwtService.sign).not.toHaveBeenCalled();
     });
   });

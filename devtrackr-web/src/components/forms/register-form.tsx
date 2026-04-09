@@ -51,7 +51,7 @@ export function RegisterForm() {
       await authService.register(values.email, values.password, values.name);
       router.push('/login');
     } catch (err) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } } };
       setErrorMsg(error.response?.data?.message || 'Registration failed. Try again.');
     }
   }

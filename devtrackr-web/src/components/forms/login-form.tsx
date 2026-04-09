@@ -44,7 +44,7 @@ export function LoginForm() {
       await authService.login(values.email, values.password);
       router.push('/dashboard');
     } catch (err) {
-      const error = err as any;
+      const error = err as { response?: { data?: { message?: string } } };
       setErrorMsg(error.response?.data?.message || 'Invalid email or password.');
     }
   }

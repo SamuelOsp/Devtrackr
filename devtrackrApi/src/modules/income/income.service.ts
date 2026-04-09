@@ -5,7 +5,7 @@ import { UpdateIncomeDto } from './dto/update-income.dto';
 
 @Injectable()
 export class IncomeService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async findUserIncomes(userId: string, limit: number = 20) {
     return this.prisma.income.findMany({

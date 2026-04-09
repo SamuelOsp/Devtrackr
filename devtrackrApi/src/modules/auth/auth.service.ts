@@ -29,10 +29,7 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
 
-    const passwordHash = await bcrypt.hash(
-      dto.password,
-      authConfig.saltRounds,
-    );
+    const passwordHash = await bcrypt.hash(dto.password, authConfig.saltRounds);
 
     const user = await this.usersService.create({
       email,

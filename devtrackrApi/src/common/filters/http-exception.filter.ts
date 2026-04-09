@@ -25,7 +25,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     const responseMessage =
       typeof message === 'object' && message !== null && 'message' in message
-        ? (message as any).message
+        ? (message as { message: unknown }).message
         : message;
 
     let errorCode = 'INTERNAL_SERVER_ERROR';
@@ -37,10 +37,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
       else errorCode = 'HTTP_ERROR';
 
       // Customize specific errors based on message or internal type if needed
-      if (typeof responseMessage === 'string' && responseMessage === 'User already exists') {
-         errorCode = 'USER_EXISTS';
-      } else if (typeof responseMessage === 'string' && responseMessage === 'Invalid credentials') {
-         errorCode = 'INVALID_CREDENTIALS';
+      if (
+        typeof responseMessage === 'string' &&
+        responseMessage === 'User already exists'
+      ) {
+        errorCode = 'USER_EXISTS';
+      } else if (
+        typeof responseMessage === 'string' &&
+        responseMessage === 'Invalid credentials'
+      ) {
+        errorCode = 'INVALID_CREDENTIALS';
       }
     }
 

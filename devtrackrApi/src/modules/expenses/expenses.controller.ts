@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, UseGuards, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  UseGuards,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ExpensesService } from './expenses.service';
@@ -15,9 +24,7 @@ export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
   @Get()
-  getExpenses(
-    @CurrentUser() user: AuthUser,
-  ) {
+  getExpenses(@CurrentUser() user: AuthUser) {
     return this.expensesService.getUserExpenses(user.id);
   }
 
@@ -36,10 +43,7 @@ export class ExpensesController {
   }
 
   @Delete(':id')
-  deleteExpense(
-    @Param('id') id: string,
-    @CurrentUser() user: AuthUser,
-  ) {
+  deleteExpense(@Param('id') id: string, @CurrentUser() user: AuthUser) {
     return this.expensesService.deleteExpense(id, user.id);
   }
 }

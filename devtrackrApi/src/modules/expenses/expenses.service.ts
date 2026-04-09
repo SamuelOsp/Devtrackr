@@ -5,7 +5,7 @@ import { UpdateExpenseDto } from './dto/update-expense.dto';
 
 @Injectable()
 export class ExpensesService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async getUserExpenses(userId: string) {
     return this.prisma.expense.findMany({
@@ -21,8 +21,8 @@ export class ExpensesService {
           select: {
             id: true,
             name: true,
-          }
-        }
+          },
+        },
       },
     });
   }
@@ -46,8 +46,8 @@ export class ExpensesService {
           select: {
             id: true,
             name: true,
-          }
-        }
+          },
+        },
       },
     });
   }

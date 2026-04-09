@@ -9,8 +9,11 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setUser(authService.getUser());
-    setIsLoading(false);
+    const initUser = () => {
+      setUser(authService.getUser());
+      setIsLoading(false);
+    };
+    initUser();
   }, []);
 
   return {
