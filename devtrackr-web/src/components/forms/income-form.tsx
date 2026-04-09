@@ -25,8 +25,7 @@ const formSchema = z.object({
     .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
       message: 'Amount must be greater than 0',
     }),
-  source: z.string().min(1, 'Source is required'),
-  description: z.string().optional(),
+  description: z.string().min(1, 'Description is required'),
   date: z.string().min(1, 'Date is required'),
 });
 
@@ -37,7 +36,6 @@ export function IncomeForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       amount: '',
-      source: '',
       description: '',
       date: new Date().toISOString().split('T')[0],
     },
@@ -46,14 +44,12 @@ export function IncomeForm() {
   const createMutation = useMutation({
     mutationFn: (data: z.infer<typeof formSchema>) => incomeService.createIncome({
       amount: Number(data.amount),
-      source: data.source,
-      description: data.description || undefined,
+      description: data.description,
       date: data.date,
     }),
     onSuccess: () => {
       form.reset({
         amount: '',
-        source: '',
         description: '',
         date: new Date().toISOString().split('T')[0],
       });
@@ -90,26 +86,12 @@ export function IncomeForm() {
             
             <FormField
               control={form.control}
-              name="source"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Source</FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g. Salary, Freelance" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description (Optional)</FormLabel>
+                  <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="Additional details..." {...field} />
+                    <Input placeholder="e.g. Salary, Freelance" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

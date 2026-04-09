@@ -12,8 +12,7 @@ export interface AuthUser {
 export interface Income {
   id: string;
   amount: number;
-  source: string;
-  description?: string;
+  description: string;
   date: string;
   createdAt: string;
 }
@@ -40,8 +39,7 @@ export interface FinancialSummary {
 
 export interface CreateIncomeDto {
   amount: number;
-  source: string;
-  description?: string;
+  description: string;
   date: string;
 }
 
