@@ -86,7 +86,7 @@ export default function DashboardPage() {
                 <XAxis dataKey="name" tick={{fill: 'hsl(var(--muted-foreground))'}} />
                 <YAxis tick={{fill: 'hsl(var(--muted-foreground))'}} tickFormatter={(value) => `$${value}`} />
                 <Tooltip 
-                  formatter={(value: any) => [`$${Number(value).toFixed(2)}`, undefined]}
+                  formatter={((value: number | string) => [`$${Number(value).toFixed(2)}`, undefined]) as never}
                   cursor={{ fill: 'hsl(var(--muted))', opacity: 0.4 }}
                   contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', borderRadius: '8px' }}
                   itemStyle={{ color: 'hsl(var(--foreground))' }}
