@@ -6,6 +6,12 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
+## Live Demo
+
+- **Frontend:** https://devtrackr.vercel.app (update with real URL)
+- **Backend:** http://EC2_PUBLIC_IP (update with real IP)
+- **API Docs:** http://EC2_PUBLIC_IP/api (Swagger)
+
 ## 📖 Overview
 
 **DevTrackr API** is the core backend for DevTrackr, a platform designed for developers and professionals to keep detailed track of their finances and income.
