@@ -50,70 +50,70 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="w-full max-w-md shadow-lg">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Sign in</CardTitle>
-        <CardDescription>Enter your email and password to access your account</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {errorMsg && (
-              <div className="p-3 rounded bg-destructive/15 text-destructive text-sm font-medium">
-                {errorMsg}
-              </div>
+    <div className="w-full max-w-sm mx-auto">
+      <div className="space-y-2 mb-8 text-center sm:text-left">
+        <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
+        <p className="text-muted-foreground">Enter your credentials to access your account</p>
+      </div>
+      
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          {errorMsg && (
+            <div className="p-3 rounded-xl bg-destructive/15 text-destructive text-sm font-medium">
+              {errorMsg}
+            </div>
+          )}
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-foreground/80">Email address</FormLabel>
+                <FormControl>
+                  <Input placeholder="name@example.com" type="email" className="rounded-xl h-12" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="name@example.com" type="email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="••••••••" type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={form.formState.isSubmitting}
-            >
-              {form.formState.isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing in...
-                </>
-              ) : (
-                'Sign In'
-              )}
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <div className="text-sm text-center text-muted-foreground w-full">
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-foreground/80">Password</FormLabel>
+                <FormControl>
+                  <Input placeholder="••••••••" type="password" className="rounded-xl h-12" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button 
+            type="submit" 
+            className="w-full h-12 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-base mt-2 transition-colors" 
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Signing in...
+              </>
+            ) : (
+              'Sign In'
+            )}
+          </Button>
+        </form>
+      </Form>
+      
+      <div className="mt-8 text-center sm:text-left">
+        <p className="text-sm text-muted-foreground">
           Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-primary font-medium hover:underline">
-            Sign up
+          <Link href="/register" className="text-slate-900 font-semibold hover:underline">
+            Register here
           </Link>
-        </div>
-      </CardFooter>
-    </Card>
+        </p>
+      </div>
+    </div>
   );
 }

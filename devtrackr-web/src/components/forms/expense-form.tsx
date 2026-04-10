@@ -72,11 +72,11 @@ export function ExpenseForm() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Add Expense</CardTitle>
+    <Card className="border-none shadow-sm rounded-xl bg-white overflow-hidden">
+      <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+        <CardTitle className="text-lg font-bold text-slate-800">Add Expense</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -84,9 +84,9 @@ export function ExpenseForm() {
               name="amount"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Amount ($)</FormLabel>
+                  <FormLabel className="text-slate-700 font-medium">Amount ($)</FormLabel>
                   <FormControl>
-                    <Input type="number" step="0.01" placeholder="0.00" {...field} />
+                    <Input type="number" step="0.01" placeholder="0.00" className="rounded-xl h-11" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -98,9 +98,9 @@ export function ExpenseForm() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel className="text-slate-700 font-medium">Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Groceries, Rent" {...field} />
+                    <Input placeholder="e.g. Groceries, Rent" className="rounded-xl h-11" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -112,11 +112,11 @@ export function ExpenseForm() {
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel className="text-slate-700 font-medium">Category</FormLabel>
                   <FormControl>
                     <select 
                       {...field} 
-                      className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex h-11 w-full rounded-xl border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <option value="" disabled>Select a category</option>
                       {isLoadingCategories ? (
@@ -140,9 +140,9 @@ export function ExpenseForm() {
               name="date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Date</FormLabel>
+                  <FormLabel className="text-slate-700 font-medium">Date</FormLabel>
                   <FormControl>
-                    <Input type="date" {...field} />
+                    <Input type="date" className="rounded-xl h-11" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,14 +150,14 @@ export function ExpenseForm() {
             />
 
             {createMutation.isError && (
-              <div className="text-sm font-medium text-destructive">
+              <div className="p-3 bg-red-50 text-red-600 rounded-xl text-sm font-medium">
                 Failed to add expense. Please try again.
               </div>
             )}
 
             <Button 
               type="submit" 
-              className="w-full"
+              className="w-full h-11 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium transition-colors mt-2"
               disabled={createMutation.isPending}
             >
               {createMutation.isPending ? (

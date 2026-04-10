@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { Sidebar } from '@/components/layout/sidebar';
@@ -13,6 +13,7 @@ export default function DashboardLayout({
 }) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -33,12 +34,23 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header />
-        <main className="flex-1 p-6 overflow-auto bg-muted/20">
-          {children}
+    <div className="flex min-h-screen bg-slate-50 relative">
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-slate-900/50 backdrop-blur-sm lg:hidden transition-opacity"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
+      <div className="flex-1 flex flex-col min-w-0 lg:pl-64 w-full min-h-screen">
+        <Header onMenuClick={() => setSidebarOpen(true)} />
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
+          <div className="max-w-6xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>
