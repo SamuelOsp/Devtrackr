@@ -53,10 +53,11 @@ export class ExpensesService {
   }
 
   async updateExpense(id: string, userId: string, dto: UpdateExpenseDto) {
-    const updateData: any = { ...dto };
-    if (dto.date) {
-      updateData.date = new Date(dto.date);
-    }
+    const updateData: Record<string, unknown> = {};
+    if (dto.amount !== undefined) updateData.amount = dto.amount;
+    if (dto.description !== undefined) updateData.description = dto.description;
+    if (dto.categoryId !== undefined) updateData.categoryId = dto.categoryId;
+    if (dto.date) updateData.date = new Date(dto.date);
 
     const { count } = await this.prisma.expense.updateMany({
       where: { id, userId },

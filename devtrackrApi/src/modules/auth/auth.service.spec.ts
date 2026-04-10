@@ -9,8 +9,8 @@ jest.mock('bcrypt');
 
 describe('AuthService', () => {
   let service: AuthService;
-  let usersService: jest.Mocked<Partial<UsersService>>;
-  let jwtService: jest.Mocked<Partial<JwtService>>;
+  let _usersService: jest.Mocked<Partial<UsersService>>;
+  let _jwtService: jest.Mocked<Partial<JwtService>>;
 
   const mockUsersService = {
     findByEmail: jest.fn(),

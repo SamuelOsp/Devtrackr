@@ -15,7 +15,7 @@ import { jwtConstants } from './constants';
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: jwtConstants.expiresIn as any,
+        expiresIn: jwtConstants.expiresIn as string,
       },
     }),
   ],

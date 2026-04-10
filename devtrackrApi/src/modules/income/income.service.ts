@@ -41,10 +41,10 @@ export class IncomeService {
   }
 
   async updateIncome(id: string, userId: string, dto: UpdateIncomeDto) {
-    const updateData: any = { ...dto };
-    if (dto.date) {
-      updateData.date = new Date(dto.date);
-    }
+    const updateData: Record<string, unknown> = {};
+    if (dto.amount !== undefined) updateData.amount = dto.amount;
+    if (dto.description !== undefined) updateData.description = dto.description;
+    if (dto.date) updateData.date = new Date(dto.date);
 
     const { count } = await this.prisma.income.updateMany({
       where: { id, userId },
