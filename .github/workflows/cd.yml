@@ -1,0 +1,30 @@
+name: CD
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd ~/Devtrackr/devtrackrApi
+            git pull origin main
+            docker build --build-arg DATABASE_URL="postgresql://postgres:dummy@localhost:5432/dummy" -t devtrackr-api .
+            docker rm -f backend-api || true
+            docker run -d -p 3000:3000 --name backend-api --env-file .env devtrackr-api
+            sleep 5
+            docker exec backend-api npx prisma db push --accept-data-loss
+            echo "✅ Deploy completed successfully"
