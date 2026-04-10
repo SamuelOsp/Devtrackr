@@ -3,13 +3,13 @@ import { AuthUser } from '../types/api.types';
 
 export const authService = {
   async login(email: string, password: string): Promise<void> {
-    const response = await api.post('/auth/login', { email, password }) as { access_token?: string; id?: string; email?: string; name?: string };
+    const response = await api.post('/auth/login', { email, password }) as { access_token?: string; user?: { id?: string; email?: string; name?: string } };
     if (response.access_token) {
       localStorage.setItem('token', response.access_token);
       localStorage.setItem('user', JSON.stringify({ 
-        id: response.id, 
-        email: response.email, 
-        name: response.name 
+        id: response.user?.id, 
+        email: response.user?.email, 
+        name: response.user?.name 
       }));
       document.cookie = 'auth-token=true; path=/'; // For middleware
     }

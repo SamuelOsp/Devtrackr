@@ -35,7 +35,11 @@ export function Header({ onMenuClick }: HeaderProps) {
               <p className="text-xs text-muted-foreground">{user.email}</p>
             </div>
             <div className="h-8 w-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-medium text-sm">
-              {user.name ? user.name.charAt(0).toUpperCase() : user.email.charAt(0).toUpperCase()}
+              {user?.name 
+                ? user.name.charAt(0).toUpperCase() 
+                : user?.email 
+                  ? user.email.charAt(0).toUpperCase() 
+                  : '?'}
             </div>
           </div>
         ) : null}
