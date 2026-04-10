@@ -159,7 +159,7 @@ export default function DashboardPage() {
                   <XAxis dataKey="name" tick={{fill: '#64748b', fontSize: 12}} axisLine={false} tickLine={false} />
                   <YAxis tick={{fill: '#64748b', fontSize: 12}} axisLine={false} tickLine={false} tickFormatter={(value) => `$${value}`} />
                   <Tooltip 
-                    formatter={(value: number | string, name: string) => [`$${Number(value).toFixed(2)}`, name]}
+                    formatter={(value: any, name: any) => [`$${Number(value).toFixed(2)}`, name]}
                     cursor={{ fill: '#f1f5f9' }}
                     contentStyle={{ backgroundColor: '#fff', borderColor: '#e2e8f0', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                     itemStyle={{ color: '#0f172a', fontWeight: 500 }}
