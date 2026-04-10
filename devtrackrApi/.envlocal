@@ -1,1 +1,0 @@
-DATABASE_URL=postgresql://postgres:%23Samuel12345.@devtrackr-db.chka6uiq4iat.us-east-2.rds.amazonaws.com:5432/postgres?schema=public&sslmode=require&uselibpqcompat=true
