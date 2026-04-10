@@ -6,7 +6,6 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from '../users/users.module';
-import { jwtConstants } from './constants';
 
 @Module({
   imports: [
@@ -15,7 +14,7 @@ import { jwtConstants } from './constants';
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: jwtConstants.expiresIn as string,
+        expiresIn: '1d',
       },
     }),
   ],
